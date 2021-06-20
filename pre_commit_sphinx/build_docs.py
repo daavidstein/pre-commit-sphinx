@@ -19,8 +19,9 @@ def build(cache_dir: str, html_dir: str, src_dir: str):
     """
 
     # Run Sphinx to build the documentation
-    ret = os.system(f'sphinx-build -b html -d {cache_dir} {src_dir} {html_dir}')
-
+    ret = os.system(f"sphinx - apidoc - o . {src_dir}")
+    ret += os.system("make html")
+    #ret = os.system(f'sphinx-build -b html -d {cache_dir} {src_dir} {html_dir}')
     # It's very weird that pre-commit marks this as 'PASSED' if I return an error code 512...! Workaround:
     return 0 if ret == 0 else 1
 
