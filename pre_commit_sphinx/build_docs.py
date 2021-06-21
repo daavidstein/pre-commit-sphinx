@@ -42,11 +42,11 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     )
 
     parser.add_argument(
-        '--module-dir', type=str, default='docs',
+        '--module-dir', type=str,
         help='path to primary module',
     )
 
-    args = parser.parse_args(argv)
+    args, _ = parser.parse_args(argv)
     if requires_build(args.filenames, args.always_build):
         return build(args.module_dir, args.docs_dir)
 
