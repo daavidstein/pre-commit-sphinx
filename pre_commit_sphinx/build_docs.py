@@ -20,6 +20,7 @@ def build(docs_dir: str, module_dir: str):
 
     # Run Sphinx to build the documentation
     ret = os.system(f"sphinx-apidoc -F -P -o {docs_dir} {module_dir}")
+    ret += os.chdir(docs_dir)
     ret += os.system("make html")
     return 0 if ret == 0 else 1
 
