@@ -19,7 +19,7 @@ def build(docs_dir: str, module_dir: str):
     """
 
     # Run Sphinx to build the documentation
-    ret = os.system(f"sphinx-apidoc -F -P -o {docs_dir} {module_dir}")
+    ret = os.system(f"sphinx-apidoc  -P -o {docs_dir} {module_dir}")
     assert os.path.isdir(docs_dir), f"{docs_dir} is not a directory"
     os.chdir(docs_dir)
     ret += os.system("make html")
