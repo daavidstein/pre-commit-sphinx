@@ -46,7 +46,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         help='path to primary module',
     )
 
-    args, _ = parser.parse_args(argv)
+    args  = parser.parse_args(argv)
     if requires_build(args.filenames, args.always_build):
         return build(args.module_dir, args.docs_dir)
 
