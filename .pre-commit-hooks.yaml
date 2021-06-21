@@ -1,6 +1,6 @@
--   id: build-docs-dms
+-   id: build-docs
     name: Build Sphinx Docs
     description: This pre-commit hook builds docs using sphinx, and should fail if a syntax error exists in the docs
     require_serial: true # Serial execution so that other routines that alter docs (e.g. formatting in python code samples) don't conflict.
     language: python
-    entry: build-docs-dms
+    entry: build-docs
