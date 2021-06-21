@@ -14,15 +14,13 @@ def requires_build(filenames: Sequence[str], always_build: bool) -> bool:
     return True
 
 
-def build(cache_dir: str, html_dir: str, src_dir: str):
+def build(docs_dir: str, module_dir: str):
     """ Invokes sphinx-build to build the docs
     """
 
     # Run Sphinx to build the documentation
-    ret = os.system(f"sphinx-apidoc -o . {src_dir}")
+    ret = os.system(f"sphinx-apidoc -F -P -o {docs_dir} {module_dir}")
     ret += os.system("make html")
-    #ret = os.system(f'sphinx-build -b html -d {cache_dir} {src_dir} {html_dir}')
-    # It's very weird that pre-commit marks this as 'PASSED' if I return an error code 512...! Workaround:
     return 0 if ret == 0 else 1
 
 
@@ -37,22 +35,20 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         help='Always rebuild, even if no doc files have changed (useful if using \
              breathe/exhale to extract docstrings from code)',
     )
+
     parser.add_argument(
-        '--cache-dir', type=str, default='docs/doctrees',
-        help='Directory to cache doctrees for fast rebuild where there are few changes',
-    )
-    parser.add_argument(
-        '--html-dir', type=str, default='docs/html',
-        help='Directory to output the build html',
-    )
-    parser.add_argument(
-        '--source-dir', type=str, default='docs/source',
+        '--docs-dir', type=str, default='docs',
         help='Directory containing documentation sources (where the conf.py file exists)',
+    )
+
+    parser.add_argument(
+        '--module-dir', type=str, default='docs',
+        help='path to primary module',
     )
 
     args = parser.parse_args(argv)
     if requires_build(args.filenames, args.always_build):
-        return build(args.cache_dir, args.html_dir, args.source_dir)
+        return build(args.module_dir, args.docs_dir)
 
     return 0
 
